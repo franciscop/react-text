@@ -4,8 +4,11 @@ export default (...args) => {
 
   let languages;
 
-  for (let key in dictionary) {
+  Object.keys(dictionary).forEach(key => {
     const entry = dictionary[key];
+
+    // Already parsed
+    if (typeof entry === 'function') return;
 
     // Retrieve a list of the languages, that must be the same in every entry
     const langs = Object.keys(entry);
@@ -22,10 +25,10 @@ export default (...args) => {
     }
 
     dictionary[key] = (lang, ...args) => {
-      if (!langs.includes(lang)) throw new Error(`Language '${lang}' not found, please use '${langs}'`);
-      return entry[lang](Object.assign({}, ...args));
+      const fn = entry[lang] || Object.values(entry)[0];
+      return fn(Object.assign({}, ...args));
     };
-  }
+  });
 
   return dictionary;
 };
