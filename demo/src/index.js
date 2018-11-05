@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Text from './Text';
+import Text from 'react-text-translate';
 
 const dictionary = {
   greetings: {
