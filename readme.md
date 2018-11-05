@@ -84,7 +84,7 @@ export default {
   farewell: {
     en: ({ name = 'World' }) => `Hello ${name}!`,
     es: ({ name = 'Mundo'}) => `¡Adiós ${name}!`,
-    ja: ({ name = '世界' }) => `こんにちは、${name.toUpperCase()}さん！`
+    ja: ({ name = '世界' }) => `さよなら、${name.toUpperCase()}さん！`
   }
 };
 ```
