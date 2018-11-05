@@ -57,7 +57,7 @@ import Text from 'react-text-translate';
 import dictionary from './dictionary';
 
 export default () => (
-  <Text language="en" dictionary={dictionary}>
+  <Text language="es" dictionary={dictionary}>
     <p><Text greetings /></p>
   </Text>
 );
