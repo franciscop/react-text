@@ -3,17 +3,17 @@
 React text translation with dictionaries. An easy to use and flexible library to fullfill your translation needs:
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
 import Text from 'react-text-translate';
 import dictionary from './dictionary';
 
-ReactDOM.render((
+export default () => (
   <Text language="ja" dictionary={dictionary}>
     <p><Text greetings /></p>
     <p><Text farewell name="Francisco" /></p>
   </Text>
-), document.querySelector('#root'));
+);
+// <p>こんにちは、世界！</p>
+// <p>さよなら、FRANCISCOさん！</p>
 ```
 
 We define our dictionary as an object of objects. The first level is the key that we pass to `Text`, the second is each of the languages:
@@ -22,10 +22,12 @@ We define our dictionary as an object of objects. The first level is the key tha
 export default {
   greetings: {
     en: 'Hello world!',
+    es: '¡Hola mundo!',
     ja: 'こんにちは、世界！'
   },
   farewell: {
     en: ({ name }) => `Bye ${name}!`,
+    es: ({ name }) => `¡Hola ${name}!`,
     ja: ({ name }) => `さよなら、${name.toUpperCase()}さん！`
   }
 };
@@ -40,10 +42,55 @@ The value can be a string, a component or a function that returns any of those.
 You have to define first how the text will behave by injecting the dictionary and the language (defaults to `en`). Then any child of this element will use those:
 
 ```js
+import dictionary from './dictionary';
 <Text language="en" dictionary={dictionary}>
   <p>{/* Here the language will be English */}</p>
 </Text>
 ```
+
+
+
+## Dictionary
+
+The dictionary is defined as an object of objects. The first level uses the key for the string, and the second one the languages:
+
+```js
+// ./dictionary.js
+export default {
+  greetings: {
+    en: 'Hello world!',
+    es: '¡Hola mundo!',
+    ja: 'こんにちは、世界！'
+  },
+  // ...
+};
+```
+
+We highly recommend that you normalize the dictionary on your side:
+
+```js
+import normalize from 'react-text-translate/normalize';
+
+export default normalize({
+  greetings: {
+    en: 'Hello world!',
+    es: '¡Hola mundo!',
+    ja: 'こんにちは、世界！'
+  }
+});
+```
+
+If you normalize it, you have the advantage that you can use it anywhere as plain functions:
+
+```js
+import dictionary from './dictionary';
+
+console.log(dictionary.greetings('en'));
+console.log(dictionary.greetings('es'));
+console.log(dictionary.greetings('ja'));
+```
+
+
 
 If you set the language or the dictionary again with children, then these will be defined for that part:
 
