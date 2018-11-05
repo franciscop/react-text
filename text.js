@@ -1,7 +1,8 @@
 import normalize from './normalize';
+import detect from './detect';
 import { createContext, createElement } from 'react';
 
-const { Provider, Consumer } = createContext({ language: 'en' });
+const { Provider, Consumer } = createContext({});
 
 const find = ({ dictionary, language, ...props }) => {
   if (!dictionary) return false;
@@ -9,17 +10,17 @@ const find = ({ dictionary, language, ...props }) => {
   if (!keys.length) throw new Error('Please make sure to pass a key');
   if (!keys.length > 1) throw new Error(`Please only pass one key/boolean, detected '${keys}'`);
   const key = keys[0];
-  dictionary = normalize(dictionary);
   if (!dictionary[key]) throw new Error(`Couldn't find the key '${key}' in the dictionary`);
   return dictionary[key](language, props);
 };
 
 export default ({ children, render, component, dictionary = {}, language, ...props }) => {
+  if (dictionary) dictionary = normalize(dictionary);
   if (children) {
     return createElement(Consumer, {}, ({ language: oldLang, dictionary: oldDict }) => {
       const value = {
-        language: language || oldLang || 'en',
-        dictionary: { ...oldDict, ...dictionary }
+        language: language || oldLang || detect(),
+        dictionary: normalize({ ...oldDict, ...dictionary })
       };
       // return <Provider value={value}>{children}</Provider>;
       return createElement(Provider, { value }, children);
