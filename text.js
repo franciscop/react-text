@@ -4,14 +4,16 @@ import { createContext, createElement } from 'react';
 
 const { Provider, Consumer } = createContext({});
 
-const find = ({ dictionary, language, ...props }) => {
+const find = ({ id, dictionary, language, ...props }) => {
   if (!dictionary) return false;
-  const keys = Object.entries(props).filter(([k, v]) => typeof v === 'boolean').map(([k]) => k);
-  if (!keys.length) throw new Error('Please make sure to pass a key');
-  if (!keys.length > 1) throw new Error(`Please only pass one key/boolean, detected '${keys}'`);
-  const key = keys[0];
-  if (!dictionary[key]) throw new Error(`Couldn't find the key '${key}' in the dictionary`);
-  return dictionary[key](language, props);
+  if (!id) {
+    const keys = Object.entries(props).filter(([k, v]) => typeof v === 'boolean').map(([k]) => k);
+    if (!keys.length) throw new Error('Please make sure to pass a key');
+    if (!keys.length > 1) throw new Error(`Please only pass one key/boolean, detected '${keys}'`);
+    id = keys[0];
+  }
+  if (!dictionary[id]) throw new Error(`Couldn't find the id '${id}' in the dictionary`);
+  return dictionary[id](language, props);
 };
 
 export default ({ children, render, component, dictionary = {}, language, ...props }) => {

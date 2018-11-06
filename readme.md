@@ -1,9 +1,9 @@
-# react-text-translate
+# React Text
 
 React text translation with dictionaries. An easy to use and flexible library to fullfill your translation needs:
 
 ```js
-import Text from 'react-text-translate';
+import Text from 'react-text';
 import dictionary from './dictionary';
 
 export default () => (
@@ -21,9 +21,11 @@ Contents:
 - [**Getting started**](#getting-started): Introduction to how to use `<Text>` with React.
 - [**Dictionary**](#dictionary): define the translations and some basic transformations.
 - [**Configuration**](#configuration): set the language and inject the dictionary.
-- [**Translate**](#translate): use `<Text>` with a key to create translations with optional properties.
+- [**Translate**](#translate): use `<Text>` with a id to create translations with optional properties.
 - [**Render**](#render): inject a translated string into a React component. Useful for `alt={}` and similar.
 - [**Component**](#component): renders only for the right language.
+
+
 
 
 
@@ -33,7 +35,7 @@ Contents:
 First let's install the package with npm:
 
 ```bash
-npm install react-text-translate
+npm install react-text
 ```
 
 Then we define [a dictionary](#dictionary) of the text to translate:
@@ -53,7 +55,7 @@ To use those, we need to nest `<Text>`. The first will be to [inject the diction
 
 ```js
 // ./Example.js
-import Text from 'react-text-translate';
+import Text from 'react-text';
 import dictionary from './dictionary';
 
 export default () => (
@@ -71,7 +73,7 @@ export default () => (
 
 ## Dictionary
 
-The dictionary is defined as an object of objects. The first level (`greetings`) is what we call the `key`, the second is the language (`en`) and finally we have the values (`Hello world` and functions):
+The dictionary is defined as an object of objects. The first level (`greetings`) is what we call the `id`, the second is the language (`en`) and finally we have the values (`Hello world` and functions):
 
 ```js
 // ./dictionary.js
@@ -95,7 +97,7 @@ All the languages must be the same in all the entries, otherwise it will throw a
 We highly recommend that you normalize the dictionary on your side:
 
 ```js
-import normalize from 'react-text-translate/normalize';
+import normalize from 'react-text/normalize';
 
 export default normalize({
   greetings: {
@@ -104,16 +106,6 @@ export default normalize({
     ja: 'こんにちは、世界！'
   }
 });
-```
-
-If you normalize it, you have the advantage that you can use it anywhere as plain functions:
-
-```js
-import dictionary from './dictionary';
-
-console.log(dictionary.greetings());             // Default language
-console.log(dictionary.greetings('es'));         // Specify the language
-console.log(dictionary.greetings('ja', props));  // Pass some properties
 ```
 
 
@@ -126,7 +118,7 @@ console.log(dictionary.greetings('ja', props));  // Pass some properties
 Once we have the dictionary, we have to determine how and where to inject it, as well as specifying the language. This will be done by creating a `<Text>` element **with children**:
 
 ```js
-import Text from 'react-text-translate';
+import Text from 'react-text';
 import dictionary from './dictionary';
 
 export default () => (
@@ -139,7 +131,7 @@ export default () => (
 They can be set at different levels, which is specially useful if you want to split the dictionary into different pages:
 
 ```js
-import Text from 'react-text-translate';
+import Text from 'react-text';
 import dictionaryA from './dictionaryA';
 import dictionaryB from './dictionaryB';
 
@@ -157,7 +149,7 @@ export default () => (
 );
 ```
 
-When nesting dictionaries **they will cascade** and the latter keys will override the previous keys.
+When nesting dictionaries **they will cascade** and the latter ids will override the previous ids.
 
 ```js
 const dictA = {
@@ -182,10 +174,10 @@ export default () => (
 // <p>Goodbye world</p>
 ```
 
-The `language` key is optional and will default to the browser language, or to the first language in the dictionary otherwise. Normally the language would come from your own code:
+The `language` prop is optional and will default to the browser language, or to the first language in the dictionary otherwise. Normally the language would come from your own code:
 
 ```js
-import Text from 'react-text-translate';
+import Text from 'react-text';
 import dictionary from './dictionary';
 
 export default ({ language = 'en' }) => (
@@ -225,13 +217,13 @@ While nesting dictionaries is totally fine and expected, nesting languages might
 ```js
 // LanguagePicker.js
 // Example implementation with Redux and an action creator
-const setLanguage = payload => ({ type; 'SET_LANGUAGE', payload });
+const setLanguage = payload => ({ type: 'SET_LANGUAGE', payload });
 export default connect(({ language }) => ({ language }))(({ language, dispatch }) => {
   <Text language={language}>
-    <div onClick={e => dispatch(setLanguage('en'))}>English</div>
-    <div onClick={e => dispatch(setLanguage('es'))}>Spanish</div>
-    <div onClick={e => dispatch(setLanguage('ja'))}>Japanese</div>
-    Current language: {language}
+    <button onClick={e => dispatch(setLanguage('en'))}>English</button>
+    <button onClick={e => dispatch(setLanguage('es'))}>Spanish</button>
+    <button onClick={e => dispatch(setLanguage('ja'))}>Japanese</button>
+    <p>Current language: {language}</p>
   </Text>
 });
 
@@ -251,7 +243,7 @@ export default combineReducers({
 
 ## Translate
 
-Now that we have our dictionary injected and language detected, we can use them with a **self-closing tag** and the right dictionary key:
+With the dictionary and language injected, use `<Text />` with a **self-closing tag** and the right id:
 
 ```js
 const dictionary = {
@@ -262,7 +254,7 @@ const dictionary = {
   }
 };
 
-// Usage; the prop 'greetings' will correspond to the dictionary key 'greetings'
+// Usage; the prop 'greetings' will correspond to the dictionary id 'greetings'
 export default () => (
   <Text language="ja" dictionary={dictionary}>
     <p><Text greetings /></p>
@@ -271,7 +263,7 @@ export default () => (
 // ~> <p>こんにちは、世界！</p>
 ```
 
-**Valid key names**: any string except [`children`](#configuration), [`render`](#render) and [`component`](#component) since these have special meaning in React-Text-Translate. Click on those keywords to see how they are used. The keys are case-sensitive.
+**Valid id names**: any prop except `id`, [`children`](#configuration), [`render`](#render) and [`component`](#component) since these have special meaning in React-Text. Click on those keywords to see how they are used. The ids are case-sensitive.
 
 The dictionary can also be a function, which will be called when rendering. The advantage is that it will receive any prop that you pass to the element. You can then localize the text properly depending on the language, and even provide defaults easily:
 
@@ -291,6 +283,30 @@ export default () => (
   </Text>
 );
 // ~> こんにちは、FRANCISCOさん！
+```
+
+You can also use the `id` prop instead of just writing the id as a prop. These two work exactly the same:
+
+```js
+export default () => (
+  <Text language="ja" dictionary={dictionary}>
+    <p><Text id="greetings" name="Francisco" /></p>
+    <p><Text greetings name="Francisco" /></p>
+  </Text>
+);
+```
+
+This however works much better for dynamic ids, since those would be messy otherwise:
+
+```js
+const key = 'greetings';
+
+export default () => (
+  <Text language="ja" dictionary={dictionary}>
+    <p><Text id={key} name="Francisco" /></p>
+    <p><Text {...{ [key]: true }} name="Francisco" /></p>
+  </Text>
+);
 ```
 
 > Note: the props that you can pass can be either strings or numbers, but right now you cannot pass a boolean like `<Text greetings isUser={true} />`. We might lift this limitation in the future.

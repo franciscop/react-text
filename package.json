@@ -1,7 +1,7 @@
 {
-  "name": "react-text-translate",
-  "version": "0.2.0",
-  "description": "",
+  "name": "react-text",
+  "version": "2.0.0",
+  "description": "Text and translation handling with React made simple",
   "main": "text.min.js",
   "scripts": {
     "build": "webpack -c",
@@ -11,7 +11,14 @@
     "type": "git",
     "url": "git+https://github.com/franciscop/react-text.git"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "text",
+    "translate",
+    "dictionary",
+    "simple",
+    "easy"
+  ],
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
   "bugs": {
@@ -30,6 +37,7 @@
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
+    "he": "^1.2.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "rollup": "^0.50.0",

@@ -2,6 +2,7 @@ import React from 'react';
 import { configure, mount, render, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Text from './text';
+import { decode } from 'he';
 
 configure({ adapter: new Adapter() });
 
@@ -19,7 +20,7 @@ const dictionary = {
 };
 
 describe('text', () => {
-  it('is defined', () => {
+  it('can render correctly', () => {
     const text = render(
       <Text language="ja" dictionary={dictionary}>
         <p><Text greetings /></p>
@@ -27,5 +28,32 @@ describe('text', () => {
       </Text>
     ).text();
     expect(text).toBe('こんにちは、世界！さよなら、FRANCISCOさん！');
+  });
+
+  it('can render correctly with id', () => {
+    const text = render(
+      <Text language="ja" dictionary={dictionary}>
+        <p><Text id="greetings" /></p>
+      </Text>
+    ).text();
+    expect(text).toBe('こんにちは、世界！');
+  });
+
+  it('renders with default props', () => {
+    const text = render(
+      <Text language="ja" dictionary={dictionary}>
+        <p><Text farewell /></p>
+      </Text>
+    ).text();
+    expect(text).toBe('さよなら、世界さん！');
+  });
+
+  it('renders with the passed props', () => {
+    const text = render(
+      <Text language="ja" dictionary={dictionary}>
+        <p><Text farewell name="Francisco" /></p>
+      </Text>
+    ).text();
+    expect(text).toBe('さよなら、FRANCISCOさん！');
   });
 })
