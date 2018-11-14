@@ -51,7 +51,7 @@ export default {
 };
 ```
 
-To use those, we need to create a wrapping `<Text>` with two options: [the **dictionary** and the **language**](#configuration):
+To use those, we need to create a wrapping `<Text>` with two options: [the **dictionary** and the **language**](#configuration). Then inside it, we create a self-closing `<Text />` tag with the property as the previously defined key of the object:
 
 ```js
 // ./Example.js
