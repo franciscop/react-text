@@ -1,4 +1,4 @@
-# React Text
+# React Text [![npm install react-text](https://img.shields.io/badge/npm%20install-react--text-blue.svg)](https://www.npmjs.com/package/react-text) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/text.min.js.svg?compression=gzip)](https://github.com/franciscop/react-text/blob/master/text.min.js)
 
 React text translation with dictionaries. An easy to use and flexible library to fullfill your translation needs:
 
@@ -18,7 +18,7 @@ export default () => (
 
 Contents:
 
-- [**Getting started**](#getting-started): Introduction to how to use `<Text>` with React.
+- [**Getting started**](#getting-started): Introduction to how to start using `react-text` with React.
 - [**Dictionary**](#dictionary): define the translations and some basic transformations.
 - [**Configuration**](#configuration): set the language and inject the dictionary.
 - [**Translate**](#translate): use `<Text>` with a id to create translations with optional properties.
@@ -94,21 +94,6 @@ export default {
 All the languages must be the same in all the entries, otherwise it will throw an error. The order is important as well, since the first language will be considered the default one if it cannot be found otherwise.
 
 
-We highly recommend that you normalize the dictionary on your side:
-
-```js
-import normalize from 'react-text/normalize';
-
-export default normalize({
-  greetings: {
-    en: 'Hello world!',
-    es: '¡Hola mundo!',
-    ja: 'こんにちは、世界！'
-  }
-});
-```
-
-
 
 
 
@@ -174,7 +159,7 @@ export default () => (
 // <p>Goodbye world</p>
 ```
 
-The `language` prop is optional and will default to the browser language, or to the first language in the dictionary otherwise. Normally the language would come from your own code:
+The language would normally be a variable that comes from your own code:
 
 ```js
 import Text from 'react-text';
@@ -369,4 +354,16 @@ When trying to do a switch between more complex fragments, or display one part o
     </section>
   )} />
 </div>
+```
+
+Note that, when using `component={...}`, we are using **the language as a key**. This would be the internal equivalent of you doing:
+
+```js
+// dictionary.js
+// NOTE: DO NOT DO THIS, this is just a visualization of how it works internally
+export default {
+  en: { en: ({ component }) => component, es: '', ja: '' },
+  es: { en: '', es: ({ component }) => component, ja: '' },
+  ja: { en: '', es: '', ja: ({ component }) => component }
+};
 ```

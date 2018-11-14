@@ -4,31 +4,33 @@ export default (...args) => {
 
   let languages;
 
-  Object.keys(dictionary).forEach(key => {
-    const entry = dictionary[key];
-
-    // Already parsed
-    if (typeof entry === 'function') return;
-
+  return Object.keys(dictionary).reduce((dict, key) => {
     // Retrieve a list of the languages, that must be the same in every entry
-    const langs = Object.keys(entry);
+    const langs = Object.keys(dictionary[key]);
     if (!languages) languages = langs;
-    if (JSON.stringify(languages) !== JSON.stringify(langs)) {
+    if (JSON.stringify(languages.sort()) !== JSON.stringify(langs.sort())) {
       throw new Error(`Wrong amount of languages, expected '${languages}' but got '${langs}'`);
     }
 
-    for (let lang of languages) {
-      const value = dictionary[key][lang];
-      if (typeof value === 'string') {
-        entry[lang] = (() => value);
-      }
-    }
-
-    dictionary[key] = (lang, ...args) => {
-      const fn = entry[lang] || Object.values(entry)[0];
-      return fn(Object.assign({}, ...args));
+    return {
+      ...dict,
+      [key]: languages.reduce((obj, lang) => {
+        const value = dictionary[key][lang];
+        if (value && value.normalized) {
+          return { ...obj, [lang]: value };
+        }
+        if (typeof value === 'function') {
+          const fn = (props = {}) => value(props);
+          fn.normalized = true;
+          return { ...obj, [lang]: fn };
+        }
+        if (typeof value === 'string') {
+          const fn = () => value;
+          fn.normalized = true;
+          return { ...obj, [lang]: fn };
+        }
+        throw new Error(`Value cannot be of type "${typeof value}"`);
+      }, {})
     };
-  });
-
-  return dictionary;
+  }, {});
 };

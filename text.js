@@ -1,43 +1,28 @@
-import normalize from './normalize';
-import detect from './detect';
-import { createContext, createElement } from 'react';
-
+import React, { createContext, createElement } from 'react';
+import normal from './normalize';
+import find from './find';
 const { Provider, Consumer } = createContext({});
 
-const find = ({ id, dictionary, language, ...props }) => {
-  if (!dictionary) return false;
-  if (!id) {
-    const keys = Object.entries(props).filter(([k, v]) => typeof v === 'boolean').map(([k]) => k);
-    if (!keys.length) throw new Error('Please make sure to pass a key');
-    if (!keys.length > 1) throw new Error(`Please only pass one key/boolean, detected '${keys}'`);
-    id = keys[0];
-  }
-  if (!dictionary[id]) throw new Error(`Couldn't find the id '${id}' in the dictionary`);
-  return dictionary[id](language, props);
-};
+export const normalize = normal;
 
-export default ({ children, render, component, dictionary = {}, language, ...props }) => {
-  if (dictionary) dictionary = normalize(dictionary);
-  if (children) {
-    return createElement(Consumer, {}, ({ language: oldLang, dictionary: oldDict }) => {
-      const value = {
-        language: language || oldLang || detect(),
-        dictionary: normalize({ ...oldDict, ...dictionary })
-      };
-      // return <Provider value={value}>{children}</Provider>;
-      return createElement(Provider, { value }, children);
-    });
-  }
-  if (component) {
-    // return <Consumer>{value => Object.keys(props).includes(language) ? component : null}</Consumer>;
-    return createElement(Consumer, {}, value => {
-      return Object.keys(props).includes(value.language || language) ? component : null;
-    });
-  }
-  if (render) {
-    // return <Consumer>{value => render(find({ ...value, ...props }))}</Consumer>;
-    return createElement(Consumer, {}, value => render(find({ ...value, ...props })));
-  }
-  // return <Consumer>{value => find({ ...value, ...props })}</Consumer>;
-  return createElement(Consumer, {}, value => find({ ...value, ...props }));
-}
+export default ({ language, dictionary = {}, children, render, component, ...props }) => (
+  <Consumer>
+    {value => {
+      // We only care about language or dictionary at the same level when we have children
+      if (children) {
+        language = language || value.language;
+        dictionary = { ...value.dictionary, ...normal(dictionary) };
+        return <Provider value={{ language, dictionary }}>{children}</Provider>;
+      }
+
+      // The component prop was passed, render only for the right language
+      if (component) return props[value.language] === true ? component : null;
+
+      // The render prop was passed, render into the children instead
+      if (render) return render(find({ ...value, ...props }));
+
+      // Normal id value
+      return find({ ...value, ...props });
+    }}
+  </Consumer>
+);
