@@ -312,7 +312,7 @@ Injects the plain text into a function. Useful for those times when you can only
 // ~> <p>Hello world</p>
 ```
 
-However, the next example can only be achieved with `render()` since it will pass the plain representation as specified in the dictionary:
+The next example can only be achieved with `render()` since it will pass the plain representation as specified in the dictionary:
 
 ```js
 <Text greetings render={text => <img alt={text} />} />
