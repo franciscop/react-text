@@ -1,6 +1,6 @@
 {
   "name": "react-text",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Text and translation handling with React made simple",
   "main": "text.min.js",
   "scripts": {
