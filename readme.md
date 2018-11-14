@@ -51,7 +51,7 @@ export default {
 };
 ```
 
-To use those, we need to nest `<Text>`. The first will be to [inject the dictionary](#configuration) and optionally the language, the second to create a translation:
+To use those, we need to create a wrapping `<Text>` with two options: [the **dictionary** and the **language**](#configuration):
 
 ```js
 // ./Example.js
