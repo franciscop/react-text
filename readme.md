@@ -1,6 +1,6 @@
 # React Text [![npm install react-text](https://img.shields.io/badge/npm%20install-react--text-blue.svg)](https://www.npmjs.com/package/react-text) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/text.min.js.svg?compression=gzip)](https://github.com/franciscop/react-text/blob/master/text.min.js)
 
-React text translation with dictionaries. An easy to use and flexible library to fullfill your translation needs:
+React text translation with dictionaries. An easy to use and flexible library to fulfill your translation needs:
 
 ```js
 import Text from 'react-text';
