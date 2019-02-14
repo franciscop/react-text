@@ -30,6 +30,16 @@ describe('text', () => {
     expect(text).toBe('こんにちは、世界！さよなら、FRANCISCOさん！');
   });
 
+  it('can render a non-translated string', () => {
+    // Note: need the <Text> here to match it properly
+    const text = shallow(
+      <Text>
+        Hello world
+      </Text>
+    ).html();
+    expect(text).toBe('Hello world');
+  });
+
   it('can render correctly with id', () => {
     const text = render(
       <Text language="ja" dictionary={dictionary}>

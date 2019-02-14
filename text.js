@@ -3,7 +3,13 @@ import normal from './normalize';
 import find from './find';
 const { Provider, Consumer } = createContext({});
 
-export const normalize = normal;
+let Text = ({ children }) => children;
+// Attempt to load React Native if it's a dependency so that it is wrapped there
+if (typeof require !== 'undefined') {
+  try {
+    Text = require('react-native').Text;
+  } catch (error) {}
+}
 
 export default ({ language, dictionary = {}, children, render, component, ...props }) => (
   <Consumer>
@@ -16,13 +22,17 @@ export default ({ language, dictionary = {}, children, render, component, ...pro
       }
 
       // The component prop was passed, render only for the right language
-      if (component) return props[value.language] === true ? component : null;
+      if (component) return (
+        <Text>{props[value.language] === true ? component : null}</Text>
+      );
 
       // The render prop was passed, render into the children instead
-      if (render) return render(find({ ...value, ...props }));
+      if (render) return (
+        <Text>{render(find({ ...value, ...props }))}</Text>
+      );
 
       // Normal id value
-      return find({ ...value, ...props });
+      return <Text>{find({ ...value, ...props })}</Text>;
     }}
   </Consumer>
 );

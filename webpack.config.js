@@ -26,7 +26,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react': path.resolve(__dirname, './node_modules/react')
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'react-native': path.resolve(__dirname, './node_modules/react-native')
     }
   },
   externals: {
@@ -36,6 +37,12 @@ module.exports = {
       commonjs2: "react",
       amd: "React",
       root: "React"
+    },
+    'react-native': {
+      commonjs: "react-native",
+      commonjs2: "react-native",
+      amd: "ReactNative",
+      root: "ReactNative"
     }
   }
 };

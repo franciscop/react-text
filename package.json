@@ -5,6 +5,7 @@
   "main": "text.min.js",
   "scripts": {
     "build": "webpack -c",
+    "pretest": "npm run build",
     "test": "jest --coverage",
     "gzip": "gzip -c text.min.js | wc -c && echo 'bytes' # Only for Unix",
     "watch": "jest --coverage"

@@ -1,9 +1,10 @@
-# React Text [![npm install react-text](https://img.shields.io/badge/npm%20install-react--text-blue.svg)](https://www.npmjs.com/package/react-text) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/text.min.js.svg?compression=gzip)](https://github.com/franciscop/react-text/blob/master/text.min.js)
+# 📙 React Text [![npm install react-text](https://img.shields.io/badge/npm%20install-react--text-blue.svg)](https://www.npmjs.com/package/react-text) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/text.min.js.svg?compression=gzip)](https://github.com/franciscop/react-text/blob/master/text.min.js)
 
-React text translation with dictionaries. An easy to use and flexible library to fullfill your translation needs:
+React and React Native translation library that uses plain objects as with dictionaries:
 
 ```js
 import Text from 'react-text';
+import React from 'react';
 import dictionary from './dictionary';
 
 export default () => (
