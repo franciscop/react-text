@@ -14,25 +14,35 @@ if (typeof require !== 'undefined') {
 export default ({ language, dictionary = {}, children, render, component, ...props }) => (
   <Consumer>
     {value => {
+      const withText = ({ children }) => <Text {...props}>{children}</Text>;
+
       // We only care about language or dictionary at the same level when we have children
       if (children) {
         language = language || value.language;
         dictionary = { ...value.dictionary, ...normal(dictionary) };
-        return <Provider value={{ language, dictionary }}>{children}</Provider>;
+        return (
+          <Text {...props}>
+            <Provider value={{ language, dictionary }}>{children}</Provider>
+          </Text>
+        );
       }
 
       // The component prop was passed, render only for the right language
-      if (component) return (
-        <Text>{props[value.language] === true ? component : null}</Text>
-      );
+      if (component) return props[value.language] === true ? <Text>{component}</Text> : null;
 
       // The render prop was passed, render into the children instead
       if (render) return (
-        <Text>{render(find({ ...value, ...props }))}</Text>
+        <Text>
+          {render(find({ ...value, ...props }))}
+        </Text>
       );
 
       // Normal id value
-      return <Text>{find({ ...value, ...props })}</Text>;
+      return (
+        <Text>
+          {find({ ...value, ...props })}
+        </Text>
+      );
     }}
   </Consumer>
 );

@@ -113,6 +113,8 @@ export default () => (
 );
 ```
 
+For React Native, any of the [usual props](https://facebook.github.io/react-native/docs/text#props) of `<Text>...</Text>` can be passed here.
+
 They can be set at different levels, which is specially useful if you want to split the dictionary into different pages:
 
 ```js
