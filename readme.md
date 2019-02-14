@@ -1,6 +1,6 @@
 # 📙 React Text [![npm install react-text](https://img.shields.io/badge/npm%20install-react--text-blue.svg)](https://www.npmjs.com/package/react-text) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/text.min.js.svg?compression=gzip)](https://github.com/franciscop/react-text/blob/master/text.min.js)
 
-React and React Native translation library that uses plain objects as with dictionaries:
+React and React Native translation library with plain objects as dictionaries:
 
 ```js
 import Text from 'react-text';

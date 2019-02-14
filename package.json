@@ -1,7 +1,7 @@
 {
   "name": "react-text",
   "version": "3.0.0",
-  "description": "Text and translation handling with React made simple",
+  "description": "React and React Native translation library with plain objects as dictionaries",
   "main": "text.min.js",
   "scripts": {
     "build": "webpack -c",
@@ -16,9 +16,12 @@
   },
   "keywords": [
     "react",
+    "react-native",
+    "native",
     "text",
     "translate",
     "dictionary",
+    "language",
     "simple",
     "easy"
   ],
