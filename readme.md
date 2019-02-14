@@ -4,7 +4,6 @@ React and React Native translation library with plain objects as dictionaries:
 
 ```js
 import Text from 'react-text';
-import React from 'react';
 import dictionary from './dictionary';
 
 export default () => (
