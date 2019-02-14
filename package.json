@@ -1,6 +1,6 @@
 {
   "name": "react-text",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "React and React Native translation library with plain objects as dictionaries",
   "main": "text.min.js",
   "scripts": {
