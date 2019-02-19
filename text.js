@@ -20,22 +20,14 @@ export default ({ language, dictionary = {}, children, render, component, ...pro
       if (children) {
         language = language || value.language;
         dictionary = { ...value.dictionary, ...normal(dictionary) };
-        return (
-          <Text {...props}>
-            <Provider value={{ language, dictionary }}>{children}</Provider>
-          </Text>
-        );
+        return <Provider value={{ language, dictionary }}>{children}</Provider>;
       }
 
       // The component prop was passed, render only for the right language
-      if (component) return props[value.language] === true ? <Text>{component}</Text> : null;
+      if (component) return props[value.language] === true ? component : null;
 
       // The render prop was passed, render into the children instead
-      if (render) return (
-        <Text>
-          {render(find({ ...value, ...props }))}
-        </Text>
-      );
+      if (render) return render(find({ ...value, ...props }));
 
       // Normal id value
       return (
