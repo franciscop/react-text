@@ -1,15 +1,15 @@
-const path = require('path');
-const webpack = require('webpack');
-const pkg = require('./package.json');
+const path = require("path");
+const webpack = require("webpack");
+const pkg = require("./package.json");
 
 module.exports = {
-  entry: path.join(__dirname, "./text.js"),
-  mode: 'production',
+  entry: path.join(__dirname, "src/index.js"),
+  mode: "production",
   output: {
     path: __dirname,
-    filename: 'text.min.js',
+    filename: "index.min.js",
     library: pkg.name,
-    libraryTarget: 'umd',
+    libraryTarget: "umd2",
     umdNamedDefine: true
   },
   module: {
@@ -17,17 +17,13 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ["babel-loader"]
       }
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
-  },
-  resolve: {
     alias: {
-      'react': path.resolve(__dirname, './node_modules/react'),
-      'react-native': path.resolve(__dirname, './node_modules/react-native')
+      react: path.resolve(__dirname, "./node_modules/react")
     }
   },
   externals: {
@@ -37,12 +33,6 @@ module.exports = {
       commonjs2: "react",
       amd: "React",
       root: "React"
-    },
-    'react-native': {
-      commonjs: "react-native",
-      commonjs2: "react-native",
-      amd: "ReactNative",
-      root: "ReactNative"
     }
   }
 };
