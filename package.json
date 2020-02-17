@@ -1,6 +1,6 @@
 {
   "name": "react-text",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "React translation library with plain objects as dictionaries",
   "homepage": "https://github.com/franciscop/react-text#readme",
   "repository": "https://github.com/franciscop/react-text.git",
