@@ -5,14 +5,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Temporary folder
-/temp
-
-# Mac temporal file
-.DS_Store
-
-# SASS Cache
-.sass-cache
+# Only for apps
+package-lock.json
 
 # Runtime data
 pids
@@ -69,5 +63,4 @@ typings/
 # next.js build output
 .next
 
-# This is a library so don't include it
-package-lock.json
+.DS_Store
