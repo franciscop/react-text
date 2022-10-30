@@ -9,49 +9,44 @@
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
   "scripts": {
-    "build": "webpack -c",
-    "gzip": "gzip -c index.min.js | wc -c && echo 'bytes'",
-    "test": "jest --coverage",
-    "watch": "jest --watch"
+    "build": "rollup -c",
+    "size": "echo $(gzip -c index.min.js | wc -c) bytes",
+    "start": "jest --watch",
+    "test": "jest --coverage"
   },
   "keywords": [
     "react",
-    "text",
     "translate",
     "dictionary",
     "language",
-    "simple",
-    "easy",
     "i18n"
   ],
   "main": "index.min.js",
   "files": [],
-  "dependencies": {},
-  "peerDependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
-  },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "babel-jest": "^25.0.0",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
     "babel-polyfill": "^6.26.0",
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.6.0",
-    "jest": "^24.8.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "regenerator-runtime": "^0.12.1",
-    "webpack": "^4.25.0",
-    "webpack-cli": "^3.1.2"
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "react": "^18.2.0",
+    "react-test": "^0.19.0",
+    "rollup": "^1.32.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-terser": "^5.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
   },
   "babel": {
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react"
-    ],
-    "plugins": []
+    ]
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
