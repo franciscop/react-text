@@ -1,24 +1,22 @@
 name: tests
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v6
+      - name: Use Node.js latest
+        uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: install dependencies
+          node-version: "lts/*"
+      - name: Install dependencies
         run: npm install
-      - name: npm test
+      - name: Run the tests
         run: npm test
         env:
           CI: true
