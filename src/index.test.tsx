@@ -1,4 +1,3 @@
-import React from "react";
 import $ from "react-test";
 import Text from ".";
 
@@ -9,9 +8,10 @@ const dictionary = {
     ja: "こんにちは、世界！",
   },
   farewell: {
-    en: ({ name = "World" }) => `Hello ${name}!`,
-    es: ({ name = "Mundo" }) => `¡Adiós ${name}!`,
-    ja: ({ name = "世界" }) => `さよなら、${name.toUpperCase()}さん！`,
+    en: ({ name = "World" }: { name?: string }) => `Hello ${name}!`,
+    es: ({ name = "Mundo" }: { name?: string }) => `¡Adiós ${name}!`,
+    ja: ({ name = "世界" }: { name?: string }) =>
+      `さよなら、${name.toUpperCase()}さん！`,
   },
 };
 
@@ -27,7 +27,7 @@ describe("text", () => {
             <Text farewell name="Francisco" />
           </p>
         </div>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("こんにちは、世界！さよなら、FRANCISCOさん！");
   });
@@ -37,7 +37,7 @@ describe("text", () => {
     const text = $(
       <div>
         <Text>Hello world</Text>
-      </div>
+      </div>,
     ).text();
     expect(text).toBe("Hello world");
   });
@@ -48,7 +48,7 @@ describe("text", () => {
         <p>
           <Text id="greetings" />
         </p>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("こんにちは、世界！");
   });
@@ -59,7 +59,7 @@ describe("text", () => {
         <p>
           <Text farewell />
         </p>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("さよなら、世界さん！");
   });
@@ -70,7 +70,7 @@ describe("text", () => {
         <p>
           <Text farewell name="Francisco" />
         </p>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("さよなら、FRANCISCOさん！");
   });
@@ -83,7 +83,7 @@ describe("text", () => {
             <Text farewell name="Francisco" />
           </p>
         </Text>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("さよなら、FRANCISCOさん！");
   });
@@ -94,69 +94,69 @@ describe("text", () => {
         <p>
           <Text greetings />
         </p>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("");
   });
 
-  it.skip("rejects without dictionary", () => {
-    const text = () =>
+  it("rejects without dictionary", () => {
+    expect(
       $(
         <Text language="ja">
           <p>
             <Text greetings />
           </p>
-        </Text>
-      );
-    expect(text).toThrow();
+        </Text>,
+      ),
+    ).toHaveError();
   });
 
-  it.skip("rejects without id", () => {
-    const text = () =>
+  it("rejects without id", () => {
+    expect(
       $(
         <Text language="ja" dictionary={dictionary}>
           <p>
             <Text />
           </p>
-        </Text>
-      );
-    expect(text).toThrow();
+        </Text>,
+      ),
+    ).toHaveError();
   });
 
-  it.skip("rejects with invalid id", () => {
-    const text = () =>
+  it("rejects with invalid id", () => {
+    expect(
       $(
         <Text language="en" dictionary={dictionary}>
           <p>
             <Text hasdadsadds />
           </p>
-        </Text>
-      );
-    expect(text).toThrow(/Couldn't find/);
+        </Text>,
+      ),
+    ).toHaveError(/Couldn't find/);
   });
 
-  it.skip("rejects with several ids", () => {
-    const text = () =>
+  it("rejects with several ids", () => {
+    expect(
       $(
         <Text language="en" dictionary={dictionary}>
           <p>
             <Text greetings farewell />
           </p>
-        </Text>
-      );
-    expect(text).toThrow(/a single id/);
+        </Text>,
+      ),
+    ).toHaveError(/a single id/);
   });
 
-  it.skip("rejects with undefined language", () => {
-    const text = () =>
+  it("rejects with undefined language", () => {
+    expect(
       $(
         <Text language="ru" dictionary={dictionary}>
           <p>
             <Text greetings />
           </p>
-        </Text>
-      );
-    expect(text).toThrow(/The language 'ru' is not available/);
+        </Text>,
+      ),
+    ).toHaveError(/The language 'ru' is not available/);
   });
 });
 
@@ -168,7 +168,7 @@ describe("text with render", () => {
           <Text greetings render={(text) => <p>{text}</p>} />
           <Text farewell name="Francisco" render={(text) => <p>{text}</p>} />
         </div>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("こんにちは、世界！さよなら、FRANCISCOさん！");
   });
@@ -177,7 +177,7 @@ describe("text with render", () => {
     const text = $(
       <Text language="ja" dictionary={dictionary}>
         <Text id="greetings" render={(text) => <p>{text}</p>} />
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("こんにちは、世界！");
   });
@@ -186,7 +186,7 @@ describe("text with render", () => {
     const text = $(
       <Text language="ja" dictionary={dictionary}>
         <Text farewell render={(text) => <p>{text}</p>} />
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("さよなら、世界さん！");
   });
@@ -195,13 +195,22 @@ describe("text with render", () => {
     const text = $(
       <Text language="ja" dictionary={dictionary}>
         <Text farewell name="Francisco" render={(text) => <p>{text}</p>} />
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("さよなら、FRANCISCOさん！");
   });
 });
 
 describe("text with component", () => {
+  it("can render 0 as a component", () => {
+    const text = $(
+      <Text language="en">
+        <Text en component={0} />
+      </Text>,
+    ).text();
+    expect(text).toBe("0");
+  });
+
   it("can do the component", () => {
     const text = $(
       <Text language="es">
@@ -216,26 +225,7 @@ describe("text with component", () => {
             <Text ja component={"こんにちは、世界！"} />
           </p>
         </div>
-      </Text>
-    ).text();
-    expect(text).toBe("¡Hola mundo!");
-  });
-
-  it("can do the component with explicit language", () => {
-    const text = $(
-      <Text language="es">
-        <div>
-          <p>
-            <Text en component={"Hello world!"} />
-          </p>
-          <p>
-            <Text es component={"¡Hola mundo!"} />
-          </p>
-          <p>
-            <Text ja component={"こんにちは、世界！"} />
-          </p>
-        </div>
-      </Text>
+      </Text>,
     ).text();
     expect(text).toBe("¡Hola mundo!");
   });

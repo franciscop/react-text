@@ -93,6 +93,27 @@ export default {
 
 All the languages must be the same in all the entries, otherwise it will throw an error. The order is important as well, since the first language will be considered the default one if it cannot be found otherwise.
 
+In TypeScript, import the `Dictionary` type to get full type checking on your dictionary files:
+
+```ts
+import type { Dictionary } from 'react-text';
+
+const dictionary: Dictionary = {
+  greetings: {
+    en: 'Hello world!',
+    es: '¡Hola mundo!',
+    ja: 'こんにちは、世界！'
+  },
+  farewell: {
+    en: ({ name = 'World' }: { name?: string }) => `Hello ${name}!`,
+    es: ({ name = 'Mundo' }: { name?: string }) => `¡Adiós ${name}!`,
+    ja: ({ name = '世界' }: { name?: string }) => `さよなら、${name.toUpperCase()}さん！`
+  }
+};
+
+export default dictionary;
+```
+
 
 
 
@@ -296,7 +317,8 @@ export default () => (
 );
 ```
 
-> Note: the props that you can pass can be either strings or numbers, but right now you cannot pass a boolean like `<Text greetings isUser={true} />`. We might lift this limitation in the future.
+> [!WARNING]
+> You can pass can either strings or numbers as props, but you cannot pass a boolean like `<Text greetings isUser={true} />`. We might lift this limitation in the future.
 
 
 
@@ -358,7 +380,7 @@ When trying to do a switch between more complex fragments, or display one part o
 </div>
 ```
 
-Note that, when using `component={...}`, we are using **the language as a key**. This would be the internal equivalent of you doing:
+When using `component={...}`, we are using **the language as a key**. This would be the internal equivalent of you doing:
 
 ```js
 // dictionary.js
