@@ -6,6 +6,8 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "esModuleInterop": true,
     "types": ["vitest/globals", "node"]
   },
