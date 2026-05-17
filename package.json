@@ -2,12 +2,17 @@
   "name": "react-text",
   "version": "4.0.0",
   "description": "React translation library with plain objects as dictionaries",
-  "homepage": "https://github.com/franciscop/react-text#readme",
-  "repository": "https://github.com/franciscop/react-text.git",
-  "bugs": "https://github.com/franciscop/react-text/issues",
-  "funding": "https://www.paypal.me/franciscopresencia/19",
+  "repository": "github:franciscop/react-text",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
+  "funding": "https://www.paypal.me/franciscopresencia/19",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "translate",
+    "dictionary",
+    "language",
+    "i18n"
+  ],
   "scripts": {
     "build": "npm run build:library && npm run build:types",
     "build:library": "vite build && mv dist/index.min.js . && rm -rf dist",
@@ -17,13 +22,6 @@
     "start": "vitest",
     "test": "vitest run --coverage"
   },
-  "keywords": [
-    "react",
-    "translate",
-    "dictionary",
-    "language",
-    "i18n"
-  ],
   "main": "index.min.js",
   "type": "module",
   "types": "index.d.ts",
@@ -39,13 +37,13 @@
     "jsdom": "^29.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-test": "^0.24.5",
+    "react-test": "^0.24.12",
     "terser": "^5.46.1",
     "typescript": "^6.0.2",
     "vite": "^8.0.3",
     "vitest": "^4.1.2"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=18.0.0"
   }
 }

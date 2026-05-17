@@ -1,4 +1,4 @@
-# React Text [![npm install react-text](https://img.shields.io/badge/npm%20install-react--text-blue.svg)](https://www.npmjs.com/package/react-text) [![test badge](https://github.com/franciscop/react-text/workflows/tests/badge.svg)](https://github.com/franciscop/react-text/blob/master/.github/workflows/tests.yml) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/index.min.js.svg?compression=gzip)](https://github.com/franciscop/react-text/blob/master/index.min.js)
+# React Text [![react-text](https://img.shields.io/npm/v/react-text?label=react-text&color=greenlime)](https://www.npmjs.com/package/react-text) [![tests](https://github.com/franciscop/react-text/workflows/tests/badge.svg)](https://github.com/franciscop/react-text/actions) [![gzip size](https://img.badgesize.io/franciscop/react-text/master/index.min.js.svg?label=gzip&logo=&compression=gzip)](https://github.com/franciscop/react-text/blob/master/index.min.js) [![dependencies](https://img.shields.io/badge/dependencies-0-limegreen.svg)](https://github.com/franciscop/react-text/blob/master/package.json)
 
 React and React Native translation library with plain objects as dictionaries:
 
