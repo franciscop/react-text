@@ -7,7 +7,12 @@ type FindArgs = {
   [key: string]: unknown;
 };
 
-export default ({ id, dictionary = {}, language = "", ...props }: FindArgs): string => {
+export default ({
+  id,
+  dictionary = {},
+  language = "",
+  ...props
+}: FindArgs): string => {
   if (!id) {
     const keys = Object.entries(props)
       .filter(([, v]) => typeof v === "boolean")

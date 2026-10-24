@@ -40,7 +40,10 @@ describe("normalize", () => {
       },
     };
     const dict = normalize(dictionary);
-    expect(typeof (dictionary.greetings.en as unknown as { normalized?: boolean }).normalized).toBe("undefined");
+    expect(
+      typeof (dictionary.greetings.en as unknown as { normalized?: boolean })
+        .normalized,
+    ).toBe("undefined");
     expect(dict.greetings.en.normalized).toBe(true);
   });
 

@@ -4,9 +4,7 @@ type NormalizedFn = {
 };
 
 type RawValue =
-  | string
-  | ((props: Record<string, unknown>) => string)
-  | NormalizedFn;
+  string | ((props: Record<string, unknown>) => string) | NormalizedFn;
 type RawEntry = Record<string, RawValue>;
 export type Dictionary = Record<string, RawEntry>;
 export type NormalizedDictionary = Record<string, Record<string, NormalizedFn>>;
@@ -20,7 +18,8 @@ export default (...args: Dictionary[]): NormalizedDictionary => {
     const langs = Object.keys(dictionary[key]);
     if (!languages) languages = langs;
     if (
-      JSON.stringify([...languages].sort()) !== JSON.stringify([...langs].sort())
+      JSON.stringify([...languages].sort()) !==
+      JSON.stringify([...langs].sort())
     ) {
       throw new Error(
         `Inconsistent languages, expected '${languages}' but got '${langs}'`,
