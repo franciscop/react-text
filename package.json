@@ -17,7 +17,7 @@
     "build": "npm run build:library && npm run build:types",
     "build:library": "vite build && mv dist/index.min.js . && rm -rf dist",
     "build:types": "dts-bundle-generator --out-file index.d.ts src/index.tsx",
-    "lint": "tsc",
+    "lint": "oxlint src && tsc",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "vitest",
     "test": "vitest run --coverage"
@@ -35,6 +35,7 @@
     "@vitest/coverage-v8": "^4.1.2",
     "dts-bundle-generator": "^9.5.1",
     "jsdom": "^29.0.1",
+    "oxlint": "^1.89.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-test": "^0.28.2",

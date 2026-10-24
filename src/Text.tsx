@@ -16,7 +16,7 @@ if (globalReq) {
     Text = globalReq("react-native").Text as ComponentType<{
       children?: ReactNode;
     }>;
-  } catch (error) {}
+  } catch {}
 }
 
 export default Text;
