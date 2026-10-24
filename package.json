@@ -1,6 +1,6 @@
 {
   "name": "react-text",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "React translation library with plain objects as dictionaries",
   "repository": "github:franciscop/react-text",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
